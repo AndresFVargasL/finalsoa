@@ -2,14 +2,13 @@ package co.edu.usbcali.params;
 
 public class RespuestaBanco {
 
-	private String tasaInterés;
+	private String tasaInteres;
 	private String tipoTasaInteres;
-	
-	public String getTasaInterés() {
-		return tasaInterés;
+	public String getTasaInteres() {
+		return tasaInteres;
 	}
-	public void setTasaInterés(String tasaInterés) {
-		this.tasaInterés = tasaInterés;
+	public void setTasaInteres(String tasaInteres) {
+		this.tasaInteres = tasaInteres;
 	}
 	public String getTipoTasaInteres() {
 		return tipoTasaInteres;
@@ -19,5 +18,4 @@ public class RespuestaBanco {
 	}
 	
 	
-
 }
