@@ -6,6 +6,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
+import co.edu.usbcali.params.SolicitudBanco;
+
 @Path("/brokenBankService")
 public class ConsultarTasaInteresBrokenBank implements Serializable{
 
@@ -13,8 +17,8 @@ public class ConsultarTasaInteresBrokenBank implements Serializable{
 
 	@Path("/consultarTasaInteres/{identificacion}")
 	@GET
-	public String consultarTasaInteres(@PathParam("identificacion") String identificacion) {
-		return "Cliente con id: "+ identificacion;
+	public String consultarTasaInteres(@RequestBody SolicitudBanco solicitud) {
+		return "Cliente con id: "+ solicitud.getNumeroIdentificacion();
 	}
 	
 }

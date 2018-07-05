@@ -6,6 +6,7 @@ public class SolicitudBanco {
 
 	private String tipoIdentificacion;
 	private String numeroIdentificacion;
+	private Double valorPrestamo;
 	private CreditProfile perfilCrediticio;
 	
 	public String getTipoIdentificacion() {
@@ -25,6 +26,12 @@ public class SolicitudBanco {
 	}
 	public void setPerfilCrediticio(CreditProfile perfilCrediticio) {
 		this.perfilCrediticio = perfilCrediticio;
+	}
+	public Double getValorPrestamo() {
+		return valorPrestamo;
+	}
+	public void setValorPrestamo(Double valorPrestamo) {
+		this.valorPrestamo = valorPrestamo;
 	}
 	
 	
