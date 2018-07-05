@@ -1,4 +1,4 @@
-package co.edu.usbcali.ltb.enums;
+package co.edu.usbcali.enums;
 
 public enum TasasDeInteres {
 	

@@ -1,4 +1,4 @@
-package co.edu.usbcali.ltb.params;
+package co.edu.usbcali.params;
 
 public class RespuestaBanco {
 
