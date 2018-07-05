@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
+    <flow name="bancochibchaFlow">
+        <file:inbound-endpoint path="/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/banco-chibcha/pendientes" responseTimeout="10000" doc:name="File"/>
+        <file:file-to-string-transformer doc:name="File to String"/>
+        <json:xml-to-json-transformer doc:name="XML to JSON"/>
+        <logger level="INFO" doc:name="Logger"/>
+        <json:json-to-object-transformer returnClass="co.edu.usbcali.params.SolicitudBanco" doc:name="JSON to Object"/>
+        <component doc:name="Java" class="com.bancochibcha.service.CreditProcessorService"/>
+    </flow>
+</mule>

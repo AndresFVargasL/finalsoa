@@ -34,7 +34,7 @@ public class LtbCreditService implements ILtbCreditService {
 		    Integer tipoTasaTmp = new Random().ints(1, (5 + 1)).findFirst().getAsInt();
 		    
 		    
-			respuesta.setTasaInteres(new DecimalFormat("#.##").format(generatedDouble)+"%");
+			respuesta.setTasaInteres(new DecimalFormat("#.##").format(generatedDouble));
 			respuesta.setTipoTasaInteres(TasasDeInteres.getValue(tipoTasaTmp).descripcion());
 			
 			    			
