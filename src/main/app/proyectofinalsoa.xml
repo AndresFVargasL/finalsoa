@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
-http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/jersey/current/mule-jersey.xsd">
+http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/jersey/current/mule-jersey.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
     <http:listener-config name="HTTP_Listener_Configuration_API_Credit_Profile" host="0.0.0.0" port="8080"  doc:name="HTTP Listener Configuration"/>
+    <http:listener-config name="HTTP_Listener_Configuration_LTB_Credit_Service" host="0.0.0.0" port="8081" basePath="/ltb" doc:name="HTTP Listener Configuration"/>
+    <ws:consumer-config name="Web_Service_Consumer" wsdlLocation="ltb.wsdl.xml" service="ILtbCreditService" port="ILtbCreditServicePort" serviceAddress="http://127.0.0.1:8081/ltb/credit/soap/" doc:name="Web Service Consumer"/>
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="9090" basePath="/call" doc:name="HTTP Listener Configuration"/>
     <flow name="flw-ConsultaElRiesgoDeTuCliente.com">
         <http:listener config-ref="HTTP_Listener_Configuration_API_Credit_Profile" path="/*" allowedMethods="POST" doc:name="HTTP Listener Profile Credit API Rest"/>
         <jersey:resources doc:name="Credit Profile Service">
             <component class="com.crc.creditprofile.service.ConsultaElRiesgoDeTuClienteService"/>
         </jersey:resources>
+    </flow>
+    <flow name="flw-LatinTrumpsBankCreditService">
+        <http:listener config-ref="HTTP_Listener_Configuration_LTB_Credit_Service" path="/credit/soap/*" doc:name="HTTP Listener Credit Service LTB"/>
+        <cxf:simple-service serviceClass="co.edu.usbcali.ltb.ILtbCreditService" doc:name="CXF Interface LTB Web Service"/>
+        <component doc:name="Java Credit Web Service Impl" class="co.edu.usbcali.ltb.LtbCreditService"/>
+    </flow>
+    <flow name="ejemploConsumoWebServiceSoap">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/*" doc:name="HTTP"/>
+        <set-variable variableName="inputId" value="#[message.inboundProperties.'http.query.params'.get('param1')]" doc:name="Variable"/>
+        <set-payload value="&lt;ltb:prestamoService xmlns:ltb=&quot;http://ltb.usbcali.edu.co/&quot;&gt;
+	&lt;ltb:arg0&gt;#[flowVars.inputId]&lt;/ltb:arg0&gt;
+&lt;/ltb:prestamoService&gt;" mimeType="application/xml" doc:name="Set Payload" encoding="ISO-8859-1"/>
+        <ws:consumer config-ref="Web_Service_Consumer" operation="prestamoService" doc:name="Web Service Consumer"/>
     </flow>
 </mule>

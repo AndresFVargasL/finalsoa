@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ltb.usbcali.edu.co/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="ILtbCreditService" targetNamespace="http://ltb.usbcali.edu.co/">
+  <wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ltb.usbcali.edu.co/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ltb.usbcali.edu.co/">
+  <xsd:element name="prestamoService" type="tns:prestamoService"/>
+  <xsd:complexType name="prestamoService">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="arg0" nillable="true" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="prestamoServiceResponse" type="tns:prestamoServiceResponse"/>
+  <xsd:complexType name="prestamoServiceResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" nillable="true" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="prestamoServiceResponse">
+    <wsdl:part element="tns:prestamoServiceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="prestamoService">
+    <wsdl:part element="tns:prestamoService" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ILtbCreditServicePortType">
+    <wsdl:operation name="prestamoService">
+      <wsdl:input message="tns:prestamoService" name="prestamoService">
+    </wsdl:input>
+      <wsdl:output message="tns:prestamoServiceResponse" name="prestamoServiceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ILtbCreditServiceSoapBinding" type="tns:ILtbCreditServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="prestamoService">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="prestamoService">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="prestamoServiceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ILtbCreditService">
+    <wsdl:port binding="tns:ILtbCreditServiceSoapBinding" name="ILtbCreditServicePort">
+      <soap:address location="http://127.0.0.1:8081/ltb/credit/soap/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
