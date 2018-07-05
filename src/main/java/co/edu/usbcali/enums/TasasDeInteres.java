@@ -23,5 +23,14 @@ public enum TasasDeInteres {
     public Integer codigo(){
     	return codigo;
     }
+    
+	public static TasasDeInteres getValue(int codigo) {
+		for (TasasDeInteres tasasDeInteres : TasasDeInteres.values()) {
+			if (tasasDeInteres.codigo == codigo) {
+				return tasasDeInteres;
+			}
+		}
+		return null;
+	}
 
 }

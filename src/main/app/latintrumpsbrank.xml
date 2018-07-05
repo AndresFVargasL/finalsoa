@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/jersey/current/mule-jersey.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration_LTB_Credit_Service" host="0.0.0.0" port="8182" basePath="/ltb" doc:name="HTTP Listener Configuration"/>
+    <flow name="flw-LatinTrumpsBankCreditService">
+        <http:listener config-ref="HTTP_Listener_Configuration_LTB_Credit_Service" path="/credit/soap/*" doc:name="HTTP Listener Credit Service LTB"/>
+        <cxf:simple-service serviceClass="com.latintrumpsbank.soap.service.ILtbCreditService" doc:name="CXF Interface LTB Web Service"/>
+        <component doc:name="Java Credit Web Service Impl" class="com.latintrumpsbank.soap.service.LtbCreditService"/>
+    </flow>
+</mule>

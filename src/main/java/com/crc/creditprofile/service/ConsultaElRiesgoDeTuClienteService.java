@@ -37,7 +37,7 @@ public class ConsultaElRiesgoDeTuClienteService {
 			Random r = new Random();
 			
 			profile.setCreditHistoryLegth(String.valueOf(r.ints(0, (20 + 1)).findFirst().getAsInt()));
-			profile.setCreditScore(String.valueOf(r.ints(200, (600 + 1)).findFirst().getAsInt()));
+			profile.setCreditScore(String.valueOf(r.ints(0, (600 + 1)).findFirst().getAsInt()));
 			
 		} catch (Exception e) {
 			profile.setCreditHistoryLegth("0");

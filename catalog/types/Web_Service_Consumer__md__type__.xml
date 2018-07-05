@@ -19,7 +19,7 @@
             <org.mule.common.metadata.property.TextBasedExampleMetaDataModelProperty/>
             <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
               <typeQName>
-                <namespaceURI>http://ltb.usbcali.edu.co/</namespaceURI>
+                <namespaceURI>http://service.soap.latintrumpsbank.com/</namespaceURI>
                 <localPart>prestamoService</localPart>
                 <prefix></prefix>
               </typeQName>
@@ -43,26 +43,236 @@
         <fields>
           <org.mule.common.metadata.DefaultMetaDataField>
             <name>ns0:arg0</name>
-            <model class="org.mule.common.metadata.DefaultSimpleMetaDataModel">
-              <dataType>STRING</dataType>
+            <model class="org.mule.common.metadata.DefaultXmlMetaDataModel">
+              <dataType>XML</dataType>
               <metaDataModelPropertiesManager>
                 <properties>
                   <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
                     <typeQName>
-                      <namespaceURI>http://www.w3.org/2001/XMLSchema</namespaceURI>
-                      <localPart>string</localPart>
+                      <namespaceURI>http://params.usbcali.edu.co</namespaceURI>
+                      <localPart>SolicitudBanco</localPart>
                       <prefix></prefix>
                     </typeQName>
                   </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
                 </properties>
               </metaDataModelPropertiesManager>
+              <fields>
+                <org.mule.common.metadata.DefaultMetaDataField>
+                  <name>ns1:numeroIdentificacion</name>
+                  <model class="org.mule.common.metadata.DefaultSimpleMetaDataModel">
+                    <dataType>STRING</dataType>
+                    <metaDataModelPropertiesManager>
+                      <properties>
+                        <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                          <typeQName>
+                            <namespaceURI>http://www.w3.org/2001/XMLSchema</namespaceURI>
+                            <localPart>string</localPart>
+                            <prefix></prefix>
+                          </typeQName>
+                        </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                      </properties>
+                    </metaDataModelPropertiesManager>
+                  </model>
+                  <accessType>READ_WRITE</accessType>
+                  <metaDataFieldPropertyManager>
+                    <properties>
+                      <org.mule.common.metadata.property.QNameMetaDataProperty>
+                        <name>
+                          <namespaceURI>http://params.usbcali.edu.co</namespaceURI>
+                          <localPart>numeroIdentificacion</localPart>
+                          <prefix>ns1</prefix>
+                        </name>
+                      </org.mule.common.metadata.property.QNameMetaDataProperty>
+                    </properties>
+                  </metaDataFieldPropertyManager>
+                </org.mule.common.metadata.DefaultMetaDataField>
+                <org.mule.common.metadata.DefaultMetaDataField>
+                  <name>ns1:perfilCrediticio</name>
+                  <model class="org.mule.common.metadata.DefaultXmlMetaDataModel">
+                    <dataType>XML</dataType>
+                    <metaDataModelPropertiesManager>
+                      <properties>
+                        <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                          <typeQName>
+                            <namespaceURI>http://modelo.crc.com</namespaceURI>
+                            <localPart>CreditProfile</localPart>
+                            <prefix></prefix>
+                          </typeQName>
+                        </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                      </properties>
+                    </metaDataModelPropertiesManager>
+                    <fields>
+                      <org.mule.common.metadata.DefaultMetaDataField>
+                        <name>ns2:creditHistoryLegth</name>
+                        <model class="org.mule.common.metadata.DefaultSimpleMetaDataModel">
+                          <dataType>STRING</dataType>
+                          <metaDataModelPropertiesManager>
+                            <properties>
+                              <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                                <typeQName reference="../../../../../../../../../org.mule.common.metadata.DefaultMetaDataField/model/metaDataModelPropertiesManager/properties/org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty/typeQName"/>
+                              </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                            </properties>
+                          </metaDataModelPropertiesManager>
+                        </model>
+                        <accessType>READ_WRITE</accessType>
+                        <metaDataFieldPropertyManager>
+                          <properties>
+                            <org.mule.common.metadata.property.QNameMetaDataProperty>
+                              <name>
+                                <namespaceURI>http://modelo.crc.com</namespaceURI>
+                                <localPart>creditHistoryLegth</localPart>
+                                <prefix>ns2</prefix>
+                              </name>
+                            </org.mule.common.metadata.property.QNameMetaDataProperty>
+                          </properties>
+                        </metaDataFieldPropertyManager>
+                      </org.mule.common.metadata.DefaultMetaDataField>
+                      <org.mule.common.metadata.DefaultMetaDataField>
+                        <name>ns2:creditScore</name>
+                        <model class="org.mule.common.metadata.DefaultSimpleMetaDataModel">
+                          <dataType>STRING</dataType>
+                          <metaDataModelPropertiesManager>
+                            <properties>
+                              <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                                <typeQName reference="../../../../../../../../../org.mule.common.metadata.DefaultMetaDataField/model/metaDataModelPropertiesManager/properties/org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty/typeQName"/>
+                              </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                            </properties>
+                          </metaDataModelPropertiesManager>
+                        </model>
+                        <accessType>READ_WRITE</accessType>
+                        <metaDataFieldPropertyManager>
+                          <properties>
+                            <org.mule.common.metadata.property.QNameMetaDataProperty>
+                              <name>
+                                <namespaceURI>http://modelo.crc.com</namespaceURI>
+                                <localPart>creditScore</localPart>
+                                <prefix>ns2</prefix>
+                              </name>
+                            </org.mule.common.metadata.property.QNameMetaDataProperty>
+                          </properties>
+                        </metaDataFieldPropertyManager>
+                      </org.mule.common.metadata.DefaultMetaDataField>
+                    </fields>
+                    <rootElement>
+                      <namespaceURI>http://service.soap.latintrumpsbank.com/</namespaceURI>
+                      <localPart>prestamoService</localPart>
+                      <prefix>ns0</prefix>
+                    </rootElement>
+                    <schemas class="org.mule.common.metadata.StringBasedSchemaProvider">
+                      <schemas>
+                        <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ns0=&quot;http://modelo.crc.com&quot; xmlns:ns1=&quot;http://schemas.xmlsoap.org/soap/http&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; xmlns:tns=&quot;http://params.usbcali.edu.co&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot; attributeFormDefault=&quot;qualified&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;http://params.usbcali.edu.co&quot;&gt;
+  &lt;xsd:import namespace=&quot;http://modelo.crc.com&quot;/&gt;
+  &lt;xsd:complexType name=&quot;SolicitudBanco&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;numeroIdentificacion&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;perfilCrediticio&quot; nillable=&quot;true&quot; type=&quot;ns0:CreditProfile&quot;/&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;tipoIdentificacion&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+  &lt;xsd:complexType name=&quot;RespuestaBanco&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;tasaInteres&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;tipoTasaInteres&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+&lt;/xsd:schema&gt;</string>
+                        <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ns1=&quot;http://schemas.xmlsoap.org/soap/http&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; xmlns:tns=&quot;http://modelo.crc.com&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot; attributeFormDefault=&quot;qualified&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;http://modelo.crc.com&quot;&gt;
+  &lt;xsd:complexType name=&quot;CreditProfile&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;creditHistoryLegth&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;creditScore&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+&lt;/xsd:schema&gt;</string>
+                        <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ns0=&quot;http://params.usbcali.edu.co&quot; xmlns:ns1=&quot;http://schemas.xmlsoap.org/soap/http&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; xmlns:tns=&quot;http://service.soap.latintrumpsbank.com/&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot; attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;http://service.soap.latintrumpsbank.com/&quot;&gt;
+  &lt;xsd:import namespace=&quot;http://params.usbcali.edu.co&quot;/&gt;
+  &lt;xsd:element name=&quot;prestamoService&quot; type=&quot;tns:prestamoService&quot;/&gt;
+  &lt;xsd:complexType name=&quot;prestamoService&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;arg0&quot; type=&quot;ns0:SolicitudBanco&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+  &lt;xsd:element name=&quot;prestamoServiceResponse&quot; type=&quot;tns:prestamoServiceResponse&quot;/&gt;
+  &lt;xsd:complexType name=&quot;prestamoServiceResponse&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;return&quot; type=&quot;ns0:RespuestaBanco&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+&lt;/xsd:schema&gt;</string>
+                      </schemas>
+                      <encoding>UTF-8</encoding>
+                      <baseUri>file:/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/src/main/resources/ltb.wsdl</baseUri>
+                    </schemas>
+                    <namespaceManager>
+                      <namespacePrefix class="tree-map">
+                        <entry>
+                          <string>http://modelo.crc.com</string>
+                          <string>ns2</string>
+                        </entry>
+                        <entry>
+                          <string>http://params.usbcali.edu.co</string>
+                          <string>ns1</string>
+                        </entry>
+                        <entry>
+                          <string>http://service.soap.latintrumpsbank.com/</string>
+                          <string>ns0</string>
+                        </entry>
+                      </namespacePrefix>
+                    </namespaceManager>
+                  </model>
+                  <accessType>READ_WRITE</accessType>
+                  <metaDataFieldPropertyManager>
+                    <properties>
+                      <org.mule.common.metadata.property.QNameMetaDataProperty>
+                        <name>
+                          <namespaceURI>http://params.usbcali.edu.co</namespaceURI>
+                          <localPart>perfilCrediticio</localPart>
+                          <prefix>ns1</prefix>
+                        </name>
+                      </org.mule.common.metadata.property.QNameMetaDataProperty>
+                    </properties>
+                  </metaDataFieldPropertyManager>
+                </org.mule.common.metadata.DefaultMetaDataField>
+                <org.mule.common.metadata.DefaultMetaDataField>
+                  <name>ns1:tipoIdentificacion</name>
+                  <model class="org.mule.common.metadata.DefaultSimpleMetaDataModel">
+                    <dataType>STRING</dataType>
+                    <metaDataModelPropertiesManager>
+                      <properties>
+                        <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                          <typeQName reference="../../../../../../org.mule.common.metadata.DefaultMetaDataField/model/metaDataModelPropertiesManager/properties/org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty/typeQName"/>
+                        </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                      </properties>
+                    </metaDataModelPropertiesManager>
+                  </model>
+                  <accessType>READ_WRITE</accessType>
+                  <metaDataFieldPropertyManager>
+                    <properties>
+                      <org.mule.common.metadata.property.QNameMetaDataProperty>
+                        <name>
+                          <namespaceURI>http://params.usbcali.edu.co</namespaceURI>
+                          <localPart>tipoIdentificacion</localPart>
+                          <prefix>ns1</prefix>
+                        </name>
+                      </org.mule.common.metadata.property.QNameMetaDataProperty>
+                    </properties>
+                  </metaDataFieldPropertyManager>
+                </org.mule.common.metadata.DefaultMetaDataField>
+              </fields>
+              <rootElement>
+                <namespaceURI>http://service.soap.latintrumpsbank.com/</namespaceURI>
+                <localPart>prestamoService</localPart>
+                <prefix>ns0</prefix>
+              </rootElement>
+              <schemas class="org.mule.common.metadata.StringBasedSchemaProvider" reference="../fields/org.mule.common.metadata.DefaultMetaDataField[2]/model/schemas"/>
+              <namespaceManager reference="../fields/org.mule.common.metadata.DefaultMetaDataField[2]/model/namespaceManager"/>
             </model>
             <accessType>READ_WRITE</accessType>
             <metaDataFieldPropertyManager>
               <properties>
                 <org.mule.common.metadata.property.QNameMetaDataProperty>
                   <name>
-                    <namespaceURI>http://ltb.usbcali.edu.co/</namespaceURI>
+                    <namespaceURI>http://service.soap.latintrumpsbank.com/</namespaceURI>
                     <localPart>arg0</localPart>
                     <prefix>ns0</prefix>
                   </name>
@@ -72,38 +282,16 @@
           </org.mule.common.metadata.DefaultMetaDataField>
         </fields>
         <rootElement>
-          <namespaceURI>http://ltb.usbcali.edu.co/</namespaceURI>
+          <namespaceURI>http://service.soap.latintrumpsbank.com/</namespaceURI>
           <localPart>prestamoService</localPart>
           <prefix>ns0</prefix>
         </rootElement>
         <schemas class="org.mule.common.metadata.StringBasedSchemaProvider">
-          <schemas>
-            <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ns1=&quot;http://schemas.xmlsoap.org/soap/http&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; xmlns:tns=&quot;http://ltb.usbcali.edu.co/&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot; attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;http://ltb.usbcali.edu.co/&quot;&gt;
-  &lt;xsd:element name=&quot;prestamoService&quot; type=&quot;tns:prestamoService&quot;/&gt;
-  &lt;xsd:complexType name=&quot;prestamoService&quot;&gt;
-    &lt;xsd:sequence&gt;
-      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;arg0&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
-    &lt;/xsd:sequence&gt;
-  &lt;/xsd:complexType&gt;
-  &lt;xsd:element name=&quot;prestamoServiceResponse&quot; type=&quot;tns:prestamoServiceResponse&quot;/&gt;
-  &lt;xsd:complexType name=&quot;prestamoServiceResponse&quot;&gt;
-    &lt;xsd:sequence&gt;
-      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;return&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
-    &lt;/xsd:sequence&gt;
-  &lt;/xsd:complexType&gt;
-&lt;/xsd:schema&gt;</string>
-          </schemas>
-          <encoding>UTF-8</encoding>
-          <baseUri>file:/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/src/main/resources/ltb.wsdl.xml</baseUri>
+          <schemas reference="../../fields/org.mule.common.metadata.DefaultMetaDataField/model/fields/org.mule.common.metadata.DefaultMetaDataField[2]/model/schemas/schemas"/>
+          <encoding reference="../../fields/org.mule.common.metadata.DefaultMetaDataField/model/fields/org.mule.common.metadata.DefaultMetaDataField[2]/model/schemas/encoding"/>
+          <baseUri>file:/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/src/main/resources/ltb.wsdl</baseUri>
         </schemas>
-        <namespaceManager>
-          <namespacePrefix class="tree-map">
-            <entry>
-              <string>http://ltb.usbcali.edu.co/</string>
-              <string>ns0</string>
-            </entry>
-          </namespacePrefix>
-        </namespaceManager>
+        <namespaceManager reference="../fields/org.mule.common.metadata.DefaultMetaDataField/model/fields/org.mule.common.metadata.DefaultMetaDataField[2]/model/namespaceManager"/>
       </org.mule.common.metadata.DefaultXmlMetaDataModel>
     </entry>
     <entry>
@@ -124,7 +312,7 @@
             <org.mule.common.metadata.property.TextBasedExampleMetaDataModelProperty/>
             <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
               <typeQName>
-                <namespaceURI>http://ltb.usbcali.edu.co/</namespaceURI>
+                <namespaceURI>http://service.soap.latintrumpsbank.com/</namespaceURI>
                 <localPart>prestamoServiceResponse</localPart>
                 <prefix></prefix>
               </typeQName>
@@ -148,22 +336,140 @@
         <fields>
           <org.mule.common.metadata.DefaultMetaDataField>
             <name>ns0:return</name>
-            <model class="org.mule.common.metadata.DefaultSimpleMetaDataModel">
-              <dataType>STRING</dataType>
+            <model class="org.mule.common.metadata.DefaultXmlMetaDataModel">
+              <dataType>XML</dataType>
               <metaDataModelPropertiesManager>
                 <properties>
                   <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
-                    <typeQName reference="../../../../../../../../../entry/org.mule.common.metadata.DefaultXmlMetaDataModel/fields/org.mule.common.metadata.DefaultMetaDataField/model/metaDataModelPropertiesManager/properties/org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty/typeQName"/>
+                    <typeQName>
+                      <namespaceURI>http://params.usbcali.edu.co</namespaceURI>
+                      <localPart>RespuestaBanco</localPart>
+                      <prefix></prefix>
+                    </typeQName>
                   </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
                 </properties>
               </metaDataModelPropertiesManager>
+              <fields>
+                <org.mule.common.metadata.DefaultMetaDataField>
+                  <name>ns1:tasaInteres</name>
+                  <model class="org.mule.common.metadata.DefaultSimpleMetaDataModel">
+                    <dataType>STRING</dataType>
+                    <metaDataModelPropertiesManager>
+                      <properties>
+                        <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                          <typeQName reference="../../../../../../../../../../../../entry/org.mule.common.metadata.DefaultXmlMetaDataModel/fields/org.mule.common.metadata.DefaultMetaDataField/model/fields/org.mule.common.metadata.DefaultMetaDataField/model/metaDataModelPropertiesManager/properties/org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty/typeQName"/>
+                        </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                      </properties>
+                    </metaDataModelPropertiesManager>
+                  </model>
+                  <accessType>READ_WRITE</accessType>
+                  <metaDataFieldPropertyManager>
+                    <properties>
+                      <org.mule.common.metadata.property.QNameMetaDataProperty>
+                        <name>
+                          <namespaceURI>http://params.usbcali.edu.co</namespaceURI>
+                          <localPart>tasaInteres</localPart>
+                          <prefix>ns1</prefix>
+                        </name>
+                      </org.mule.common.metadata.property.QNameMetaDataProperty>
+                    </properties>
+                  </metaDataFieldPropertyManager>
+                </org.mule.common.metadata.DefaultMetaDataField>
+                <org.mule.common.metadata.DefaultMetaDataField>
+                  <name>ns1:tipoTasaInteres</name>
+                  <model class="org.mule.common.metadata.DefaultSimpleMetaDataModel">
+                    <dataType>STRING</dataType>
+                    <metaDataModelPropertiesManager>
+                      <properties>
+                        <org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                          <typeQName reference="../../../../../../../../../../../../entry/org.mule.common.metadata.DefaultXmlMetaDataModel/fields/org.mule.common.metadata.DefaultMetaDataField/model/fields/org.mule.common.metadata.DefaultMetaDataField/model/metaDataModelPropertiesManager/properties/org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty/typeQName"/>
+                        </org.mule.common.metadata.property.xml.SchemaTypeMetaDataProperty>
+                      </properties>
+                    </metaDataModelPropertiesManager>
+                  </model>
+                  <accessType>READ_WRITE</accessType>
+                  <metaDataFieldPropertyManager>
+                    <properties>
+                      <org.mule.common.metadata.property.QNameMetaDataProperty>
+                        <name>
+                          <namespaceURI>http://params.usbcali.edu.co</namespaceURI>
+                          <localPart>tipoTasaInteres</localPart>
+                          <prefix>ns1</prefix>
+                        </name>
+                      </org.mule.common.metadata.property.QNameMetaDataProperty>
+                    </properties>
+                  </metaDataFieldPropertyManager>
+                </org.mule.common.metadata.DefaultMetaDataField>
+              </fields>
+              <rootElement>
+                <namespaceURI>http://service.soap.latintrumpsbank.com/</namespaceURI>
+                <localPart>prestamoServiceResponse</localPart>
+                <prefix>ns0</prefix>
+              </rootElement>
+              <schemas class="org.mule.common.metadata.StringBasedSchemaProvider">
+                <schemas>
+                  <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ns0=&quot;http://modelo.crc.com&quot; xmlns:ns1=&quot;http://schemas.xmlsoap.org/soap/http&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; xmlns:tns=&quot;http://params.usbcali.edu.co&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot; attributeFormDefault=&quot;qualified&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;http://params.usbcali.edu.co&quot;&gt;
+  &lt;xsd:import namespace=&quot;http://modelo.crc.com&quot;/&gt;
+  &lt;xsd:complexType name=&quot;SolicitudBanco&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;numeroIdentificacion&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;perfilCrediticio&quot; nillable=&quot;true&quot; type=&quot;ns0:CreditProfile&quot;/&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;tipoIdentificacion&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+  &lt;xsd:complexType name=&quot;RespuestaBanco&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;tasaInteres&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;tipoTasaInteres&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+&lt;/xsd:schema&gt;</string>
+                  <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ns1=&quot;http://schemas.xmlsoap.org/soap/http&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; xmlns:tns=&quot;http://modelo.crc.com&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot; attributeFormDefault=&quot;qualified&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;http://modelo.crc.com&quot;&gt;
+  &lt;xsd:complexType name=&quot;CreditProfile&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;creditHistoryLegth&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;creditScore&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+&lt;/xsd:schema&gt;</string>
+                  <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ns0=&quot;http://params.usbcali.edu.co&quot; xmlns:ns1=&quot;http://schemas.xmlsoap.org/soap/http&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; xmlns:tns=&quot;http://service.soap.latintrumpsbank.com/&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot; attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;http://service.soap.latintrumpsbank.com/&quot;&gt;
+  &lt;xsd:import namespace=&quot;http://params.usbcali.edu.co&quot;/&gt;
+  &lt;xsd:element name=&quot;prestamoService&quot; type=&quot;tns:prestamoService&quot;/&gt;
+  &lt;xsd:complexType name=&quot;prestamoService&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;arg0&quot; type=&quot;ns0:SolicitudBanco&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+  &lt;xsd:element name=&quot;prestamoServiceResponse&quot; type=&quot;tns:prestamoServiceResponse&quot;/&gt;
+  &lt;xsd:complexType name=&quot;prestamoServiceResponse&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;return&quot; type=&quot;ns0:RespuestaBanco&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+&lt;/xsd:schema&gt;</string>
+                </schemas>
+                <encoding reference="../../../../../../../entry/org.mule.common.metadata.DefaultXmlMetaDataModel/fields/org.mule.common.metadata.DefaultMetaDataField/model/fields/org.mule.common.metadata.DefaultMetaDataField[2]/model/schemas/encoding"/>
+                <baseUri>file:/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/src/main/resources/ltb.wsdl</baseUri>
+              </schemas>
+              <namespaceManager>
+                <namespacePrefix class="tree-map">
+                  <entry>
+                    <string>http://params.usbcali.edu.co</string>
+                    <string>ns1</string>
+                  </entry>
+                  <entry>
+                    <string>http://service.soap.latintrumpsbank.com/</string>
+                    <string>ns0</string>
+                  </entry>
+                </namespacePrefix>
+              </namespaceManager>
             </model>
             <accessType>READ_WRITE</accessType>
             <metaDataFieldPropertyManager>
               <properties>
                 <org.mule.common.metadata.property.QNameMetaDataProperty>
                   <name>
-                    <namespaceURI>http://ltb.usbcali.edu.co/</namespaceURI>
+                    <namespaceURI>http://service.soap.latintrumpsbank.com/</namespaceURI>
                     <localPart>return</localPart>
                     <prefix>ns0</prefix>
                   </name>
@@ -173,38 +479,16 @@
           </org.mule.common.metadata.DefaultMetaDataField>
         </fields>
         <rootElement>
-          <namespaceURI>http://ltb.usbcali.edu.co/</namespaceURI>
+          <namespaceURI>http://service.soap.latintrumpsbank.com/</namespaceURI>
           <localPart>prestamoServiceResponse</localPart>
           <prefix>ns0</prefix>
         </rootElement>
         <schemas class="org.mule.common.metadata.StringBasedSchemaProvider">
-          <schemas>
-            <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ns1=&quot;http://schemas.xmlsoap.org/soap/http&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; xmlns:tns=&quot;http://ltb.usbcali.edu.co/&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot; attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot; targetNamespace=&quot;http://ltb.usbcali.edu.co/&quot;&gt;
-  &lt;xsd:element name=&quot;prestamoService&quot; type=&quot;tns:prestamoService&quot;/&gt;
-  &lt;xsd:complexType name=&quot;prestamoService&quot;&gt;
-    &lt;xsd:sequence&gt;
-      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;arg0&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
-    &lt;/xsd:sequence&gt;
-  &lt;/xsd:complexType&gt;
-  &lt;xsd:element name=&quot;prestamoServiceResponse&quot; type=&quot;tns:prestamoServiceResponse&quot;/&gt;
-  &lt;xsd:complexType name=&quot;prestamoServiceResponse&quot;&gt;
-    &lt;xsd:sequence&gt;
-      &lt;xsd:element minOccurs=&quot;0&quot; name=&quot;return&quot; nillable=&quot;true&quot; type=&quot;xsd:string&quot;/&gt;
-    &lt;/xsd:sequence&gt;
-  &lt;/xsd:complexType&gt;
-&lt;/xsd:schema&gt;</string>
-          </schemas>
-          <encoding reference="../../../../entry/org.mule.common.metadata.DefaultXmlMetaDataModel/schemas/encoding"/>
-          <baseUri>file:/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/src/main/resources/ltb.wsdl.xml</baseUri>
+          <schemas reference="../../fields/org.mule.common.metadata.DefaultMetaDataField/model/schemas/schemas"/>
+          <encoding reference="../../../../entry/org.mule.common.metadata.DefaultXmlMetaDataModel/fields/org.mule.common.metadata.DefaultMetaDataField/model/fields/org.mule.common.metadata.DefaultMetaDataField[2]/model/schemas/encoding"/>
+          <baseUri>file:/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/src/main/resources/ltb.wsdl</baseUri>
         </schemas>
-        <namespaceManager>
-          <namespacePrefix class="tree-map">
-            <entry>
-              <string>http://ltb.usbcali.edu.co/</string>
-              <string>ns0</string>
-            </entry>
-          </namespacePrefix>
-        </namespaceManager>
+        <namespaceManager reference="../fields/org.mule.common.metadata.DefaultMetaDataField/model/namespaceManager"/>
       </org.mule.common.metadata.DefaultXmlMetaDataModel>
     </entry>
   </types>
