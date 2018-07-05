@@ -10,7 +10,7 @@ http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/j
     <http:listener-config name="HTTP_Listener_Broken_Bank" host="0.0.0.0" port="8082" doc:name="HTTP Listener Configuration"/>
     <flow name="brokenbankFlow">
         <http:listener config-ref="HTTP_Listener_Broken_Bank" path="/*" doc:name="Se recibe petici&#243;n HTTP"/>
-        <logger message="Se ha recibido una petici&#243;n del Broken Bank" level="INFO" category="co.edu.usbcali.brokenbank" doc:name="Log petici&#243;n recibida"/>
+        <logger message="Se ha recibido una petici&#243;n del Broken Bank #[message.inboundProperties.'http.request.path']" level="INFO" category="co.edu.usbcali.brokenbank" doc:name="Log petici&#243;n recibida"/>
         <jersey:resources doc:name="Invocar servicio REST">
             <component class="com.brokenbank.service.ConsultarTasaInteresBrokenBank"/>
         </jersey:resources>
