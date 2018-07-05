@@ -33,7 +33,7 @@ public class ConsultarTasaInteresBancoAmerica implements Serializable{
 			respuesta.setMensaje("El valor del prestamo debe ser mayor o igual a "+valorPrestamoMinimo);
 		}else {
 			Random r = new Random();
-			respuesta.setTasaInterés((String.valueOf(r.ints(0, (5 + 1)).findFirst().getAsInt()))+"%");
+			respuesta.setTasaInteres((String.valueOf(r.ints(0, (5 + 1)).findFirst().getAsInt()))+"%");
 			respuesta.setTipoTasaInteres("Preferencial");
 			respuesta.setMensaje("Tasa de interes definida");
 		}
