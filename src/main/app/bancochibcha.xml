@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
-http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
-    <flow name="bancochibchaFlow">
-        <file:inbound-endpoint path="/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/banco-chibcha/pendientes" responseTimeout="10000" doc:name="File"/>
-        <file:file-to-string-transformer doc:name="File to String"/>
-        <json:xml-to-json-transformer doc:name="XML to JSON"/>
-        <logger level="INFO" doc:name="Logger"/>
-        <json:json-to-object-transformer returnClass="co.edu.usbcali.params.SolicitudBanco" doc:name="JSON to Object"/>
-        <component doc:name="Java" class="com.bancochibcha.service.CreditProcessorService"/>
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration1_test_xml" host="0.0.0.0" port="8286" basePath="/testReadFileMiddleFlow" doc:name="HTTP Listener Configuration"/>
+    <flow name="flw-banchoChibcha-XmlProcessor">
+        <file:inbound-endpoint path="/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/banco-chibcha/pendientes" responseTimeout="10000" doc:name="XML File Reader"/>
+        <file:file-to-string-transformer doc:name="Process File to String"/>
+        <json:xml-to-json-transformer doc:name="XML.parseJSON"/>
+        <json:json-to-object-transformer returnClass="co.edu.usbcali.params.XmlParameterReader" doc:name="JSON Schema to Pojo"/>
+        <component doc:name="Callable Java Class to Credit Process" class="com.bancochibcha.service.CreditProcessorService"/>
+        <json:object-to-json-transformer doc:name="RespuestaBanco.parseJSON"/>
+        <file:outbound-endpoint path="/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/banco-chibcha/procesados" outputPattern="#[message.outboundProperties.identificacionCliente].txt" responseTimeout="10000" doc:name="Final Writer File Processor"/>
+    </flow>
+    <flow name="bancochibchaFlow1">
+        <http:listener config-ref="HTTP_Listener_Configuration1_test_xml" path="/*" doc:name="HTTP"/>
+        <scripting:component doc:name="Get xls File">
+            <scripting:script engine="Groovy"><![CDATA[new File('/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/banco-chibcha/procesados/1144068377.txt').getText('UTF-8')]]></scripting:script>
+        </scripting:component>
+        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
+<!--         <set-payload value="#[Thread.currentThread().getContextClassLoader().getResourceAsStream('my-file.abc')]" doc:name="Set Payload"/> -->
     </flow>
 </mule>

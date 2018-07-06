@@ -1,0 +1,1 @@
+{"tasaInteres":"2.03","tipoTasaInteres":"Tasa de Interés Efectiva Mensual"}
