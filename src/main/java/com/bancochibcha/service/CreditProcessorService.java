@@ -32,7 +32,7 @@ public class CreditProcessorService implements Callable {
 		  
 			try {
 				
-				log.info("BANCO <<<<<< LATIN TRUMPS BANK>>>>>>> Calculando tipo y tasa de interes para la solicitud de prestamo...");
+//				log.info("BANCO <<<<<< LATIN TRUMPS BANK>>>>>>> Calculando tipo y tasa de interes para la solicitud de prestamo...");
 				log.info("Usuario >>> Tipo Identificacion :"+solicitud.getTipoIdentificacion()+" Numero identificacion: "+solicitud.getNumeroIdentificacion());
 				log.info("Experiencia Crediticia :"+solicitud.getPerfilCrediticio().getCreditHistoryLegth()+" Score Crediticio: "+solicitud.getPerfilCrediticio().getCreditScore());
 				

@@ -47,7 +47,7 @@ public class MainEventBrainListener implements Callable {
 					
 					Double tasaBdA = Double.parseDouble(respuestaBancoDeAmerica.getTasaInteres());
 					Double tasaBB = Double.parseDouble(respuestaBrokenBank.getTasaInteres());
-					if(tasaBdA.compareTo(tasaBB) > 0){
+					if(tasaBdA.compareTo(tasaBB) < 0){
 						 nombreBanco = "Banco de América";
 						 tipoTasa = respuestaBancoDeAmerica.getTipoTasaInteres();
 						 valorTasa = respuestaBancoDeAmerica.getTasaInteres();
@@ -61,7 +61,7 @@ public class MainEventBrainListener implements Callable {
 					
 					Double tasaLtb = Double.parseDouble(respuestaLatinTrumpsBank.getTasaInteres());
 					Double tasaChibcha = Double.parseDouble(respuestaBancoChibcha.getTasaInteres());
-					if(tasaLtb.compareTo(tasaChibcha) > 0){
+					if(tasaLtb.compareTo(tasaChibcha) < 0){
 						 nombreBanco = "Latin Trumps Bank";
 						 tipoTasa = respuestaLatinTrumpsBank.getTipoTasaInteres();
 						 valorTasa = respuestaLatinTrumpsBank.getTasaInteres();

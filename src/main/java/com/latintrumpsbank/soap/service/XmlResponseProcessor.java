@@ -37,7 +37,7 @@ public class XmlResponseProcessor implements Callable {
 				
 				Gson gson = new Gson();
 				
-				log.info("RESPUESTA ::: BANCO CHIBCHA >> "+response.getNs1PrestamoServiceResponse().getNs1Return());
+				log.info("RESPUESTA ::: LATIN TRUMPS BANK >> "+response.getNs1PrestamoServiceResponse().getNs1Return());
 				
 				respuesta = gson.fromJson(response.getNs1PrestamoServiceResponse().getNs1Return(), RespuestaBanco.class);
 				
