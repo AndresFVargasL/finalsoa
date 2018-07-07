@@ -13,4 +13,9 @@ public class InputParameters {
         this.cliente = cliente;
     }
 
+	public InputParameters() {
+		super();
+	}
+    
+    
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
+    <jms:activemq-connector name="Active_MQ" specification="1.1" brokerURL="tcp://127.0.0.1:61616" validateConnections="true" persistentDelivery="true" doc:name="Active MQ"/>
+    <http:listener-config name="HTTP_Listener_Configuration1" host="0.0.0.0" port="8888" basePath="/grupoVortex" doc:name="HTTP Listener Configuration"/>
+    <http:request-config name="HTTP_Request_Configuration_to_ConsultaElRiegoDeTuCliente" host="127.0.0.1" port="8080" doc:name="HTTP Request Configuration"/>
+    <flow name="mainFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration1" path="/integraciones/*" allowedMethods="POST" doc:name="HTTP"/>
+        <object-to-string-transformer doc:name="Object to String"/>
+        <jms:outbound-endpoint exchange-pattern="request-response" queue="qIntegraciones" connector-ref="Active_MQ" doc:name="JMS"/>
+    </flow>
+    <flow name="mainFlow1">
+        <jms:inbound-endpoint exchange-pattern="request-response" queue="qIntegraciones" connector-ref="Active_MQ" doc:name="JMS"/>
+        <json:json-to-object-transformer returnClass="co.edu.usbcali.formulario.FormularioPrincipal" doc:name="JSON to Object"/>
+        <logger message="&gt;&gt;&gt;&gt;&gt;&gt;&gt;   #[payload]" level="INFO" doc:name="Logger"/>
+        <set-property propertyName="payloadFormulario" value="#[payload]" doc:name="Property"/>
+        <component doc:name="Callable Java Class to Credit Process" class="co.edu.usbcali.formulario.FormularioProcessor"/>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+        <http:request config-ref="HTTP_Request_Configuration_to_ConsultaElRiegoDeTuCliente" path="/creditAgencyService/creditProfile" method="POST" doc:name="Risk Credit Service Invocation"/>
+        <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+        <logger message=" AQUI ES EL FIN DEL MUNDO #[payload]" level="INFO" doc:name="Logger"/>
+    </flow>
+</mule>
