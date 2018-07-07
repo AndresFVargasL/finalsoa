@@ -1,7 +1,13 @@
 package co.edu.usbcali.formulario;
 
-public class Contacto {
+import java.io.Serializable;
 
+public class Contacto implements Serializable  {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombreCompleto;
 	private Long identificacion;
 	private Long telefonoContacto;

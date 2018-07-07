@@ -170,6 +170,12 @@
 			<artifactId>activemq-core</artifactId>
 			<version>5.5.1</version>
 		</dependency>
+    <dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-email</artifactId>
+            <version>${mule.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 	<repositories>

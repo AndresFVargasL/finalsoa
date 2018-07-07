@@ -12,7 +12,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
     <http:listener-config name="HTTP_Listener_Configuration1_test_xml" host="0.0.0.0" port="8286" basePath="/testReadFileMiddleFlow" doc:name="HTTP Listener Configuration"/>
     <flow name="flw-banchoChibcha-XmlProcessor">
-        <file:inbound-endpoint path="/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/banco-chibcha/pendientes" responseTimeout="10000" doc:name="XML File Reader"/>
+        <file:inbound-endpoint path="/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/banco-chibcha/pendientes" responseTimeout="10000" doc:name="XML File Reader" fileAge="1000" pollingFrequency="5000"/>
         <file:file-to-string-transformer doc:name="Process File to String"/>
         <json:xml-to-json-transformer doc:name="XML.parseJSON"/>
         <json:json-to-object-transformer returnClass="co.edu.usbcali.params.XmlParameterReader" doc:name="JSON Schema to Pojo"/>

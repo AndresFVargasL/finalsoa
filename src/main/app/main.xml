@@ -1,30 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
-http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd">
     <jms:activemq-connector name="Active_MQ" specification="1.1" brokerURL="tcp://127.0.0.1:61616" validateConnections="true" persistentDelivery="true" doc:name="Active MQ"/>
     <http:listener-config name="HTTP_Listener_Configuration1" host="0.0.0.0" port="8888" basePath="/grupoVortex" doc:name="HTTP Listener Configuration"/>
     <http:request-config name="HTTP_Request_Configuration_to_ConsultaElRiegoDeTuCliente" host="127.0.0.1" port="8080" doc:name="HTTP Request Configuration"/>
+    <http:request-config name="HTTP_Request_Configuration_BancoDelPueblo_Invocation" host="127.0.0.1" port="8083" doc:name="HTTP Request Configuration"/>
+    <http:request-config name="HTTP_Request_Configuration_Banco_de_America" host="127.0.0.1" port="8084" doc:name="HTTP Request Configuration"/>
+    <http:request-config name="HTTP_Request_Configuration_Broken_Bank" host="127.0.0.1" port="8082" doc:name="HTTP Request Configuration"/>
+    <smtp:gmail-connector name="Gmail" contentType="text/html" validateConnections="true" doc:name="Gmail"/>
     <flow name="mainFlow">
         <http:listener config-ref="HTTP_Listener_Configuration1" path="/integraciones/*" allowedMethods="POST" doc:name="HTTP"/>
         <object-to-string-transformer doc:name="Object to String"/>
-        <jms:outbound-endpoint exchange-pattern="request-response" queue="qIntegraciones" connector-ref="Active_MQ" doc:name="JMS"/>
+        <jms:outbound-endpoint exchange-pattern="request-response" queue="qIntegraciones" connector-ref="Active_MQ" doc:name="JMS" responseTimeout="60000"/>
     </flow>
     <flow name="mainFlow1">
-        <jms:inbound-endpoint exchange-pattern="request-response" queue="qIntegraciones" connector-ref="Active_MQ" doc:name="JMS"/>
+        <jms:inbound-endpoint exchange-pattern="request-response" queue="qIntegraciones" connector-ref="Active_MQ" doc:name="JMS" responseTimeout="60000"/>
         <json:json-to-object-transformer returnClass="co.edu.usbcali.formulario.FormularioPrincipal" doc:name="JSON to Object"/>
-        <logger message="&gt;&gt;&gt;&gt;&gt;&gt;&gt;   #[payload]" level="INFO" doc:name="Logger"/>
-        <set-property propertyName="payloadFormulario" value="#[payload]" doc:name="Property"/>
+        <set-session-variable doc:name="Session Variable" value="#[payload]" variableName="payloadFormulario" encoding="ISO-8859-1"/>
         <component doc:name="Callable Java Class to Credit Process" class="co.edu.usbcali.formulario.FormularioProcessor"/>
         <json:object-to-json-transformer doc:name="Object to JSON"/>
         <http:request config-ref="HTTP_Request_Configuration_to_ConsultaElRiegoDeTuCliente" path="/creditAgencyService/creditProfile" method="POST" doc:name="Risk Credit Service Invocation"/>
         <byte-array-to-string-transformer doc:name="Byte Array to String"/>
-        <logger message=" AQUI ES EL FIN DEL MUNDO #[payload]" level="INFO" doc:name="Logger"/>
+        <json:json-to-object-transformer returnClass="com.crc.modelo.OutputParameters" doc:name="JSON to Object"/>
+        <component doc:name="Callable Java Class to Credit Process" class="co.edu.usbcali.formulario.SolicitudBancoProcessor"/>
+        <set-variable variableName="solicitudBanco" value="#[payload]" doc:name="Variable"/>
+        <choice doc:name="Choice">
+            <when expression="#[sessionVars.payloadFormulario.cantidadSolicitada &gt;= 20000000]">
+                <logger message="Banco de Am&#233;rica &gt;=20&#8217;000&#8217;000	(POST) == Broken Bank &gt;=20&#8217;000&#8217;000		(GET)" level="INFO" doc:name="1 y 2"/>
+                <http:request config-ref="HTTP_Request_Configuration_Banco_de_America" path="/bancoAmericaService/consultarTasaInteres" method="POST" doc:name="HTTP"/>
+                <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+                <logger message="RESPUESTA ::: BANCO DE AMERICA &gt;&gt; #[payload]" level="INFO" doc:name="Logger"/>
+                <json:json-to-object-transformer returnClass="co.edu.usbcali.params.RespuestaBanco" doc:name="JSON to Object"/>
+                <set-session-variable variableName="respuestaBancoDeAmerica" value="#[payload]" encoding="ISO-8859-1" doc:name="Session Variable"/>
+                <http:request config-ref="HTTP_Request_Configuration_Broken_Bank" path="/brokenBankService/consultarTasaInteres/{numeroIdentificacion}/{tipoIdentificacion}/{valorPrestamo}/{creditHistoryLegth}/{creditScore}" method="GET" doc:name="HTTP">
+                    <http:request-builder>
+                        <http:uri-param paramName="numeroIdentificacion" value="#[flowVars.solicitudBanco.numeroIdentificacion]"/>
+                        <http:uri-param paramName="tipoIdentificacion" value="#[flowVars.solicitudBanco.tipoIdentificacion]"/>
+                        <http:uri-param paramName="valorPrestamo" value="#[flowVars.solicitudBanco.valorPrestamo]"/>
+                        <http:uri-param paramName="creditHistoryLegth" value="#[flowVars.solicitudBanco.perfilCrediticio.creditHistoryLegth]"/>
+                        <http:uri-param paramName="creditScore" value="#[flowVars.solicitudBanco.perfilCrediticio.creditScore]"/>
+                    </http:request-builder>
+                </http:request>
+                <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+                <logger message="RESPUESTA ::: BROKEN BANK &gt;&gt; #[payload]" level="INFO" doc:name="Logger"/>
+                <json:json-to-object-transformer returnClass="co.edu.usbcali.params.RespuestaBanco" doc:name="JSON to Object"/>
+                <set-session-variable variableName="respuestaBrokenBank" value="#[payload]" encoding="ISO-8859-1" doc:name="Session Variable"/>
+            </when>
+            <when expression="#[sessionVars.payloadFormulario.cantidadSolicitada &gt;= 10000000 &amp;&amp; sessionVars.payloadFormulario.cantidadSolicitada &lt; 20000000]">
+                <logger message="Latin Trump&#8217;s Bank Y Banco Chibcha &gt;= 10&#8217;000&#8217;000 y &lt;20&#8217;000&#8217;000" level="INFO" doc:name="3 y 4"/>
+                <set-payload value="&lt;ser:prestamoService xmlns:ser=&quot;http://service.soap.latintrumpsbank.com/&quot; xmlns:par=&quot;http://params.usbcali.edu.co&quot; xmlns:mod=&quot;http://modelo.crc.com&quot; &gt;    &lt;ser:arg0&gt;       &lt;par:numeroIdentificacion&gt;#[payload.numeroIdentificacion]&lt;/par:numeroIdentificacion&gt;       &lt;par:perfilCrediticio&gt;          &lt;mod:creditHistoryLegth&gt;#[payload.perfilCrediticio.creditHistoryLegth]&lt;/mod:creditHistoryLegth&gt;          &lt;mod:creditScore&gt;#[payload.perfilCrediticio.creditScore]&lt;/mod:creditScore&gt;       &lt;/par:perfilCrediticio&gt;       &lt;par:tipoIdentificacion&gt;#[payload.tipoIdentificacion]&lt;/par:tipoIdentificacion&gt;    &lt;/ser:arg0&gt; &lt;/ser:prestamoService&gt;" mimeType="application/xml" doc:name="Set Payload" encoding="ISO-8859-1"/>
+                <ws:consumer config-ref="Web_Service_Consumer_Banco_Chibcha" operation="prestamoService" doc:name="Web Service Consumer"/>
+                <mulexml:dom-to-xml-transformer doc:name="DOM to XML"/>
+                <json:xml-to-json-transformer  doc:name="XML to JSON"/>
+                <json:json-to-object-transformer returnClass="com.latintrumpsbank.soap.service.PrestamoServiceResponse" doc:name="JSON to Object"/>
+                <component doc:name="Callable Java Class to Credit Process" class="com.latintrumpsbank.soap.service.XmlResponseProcessor"/>
+                <set-session-variable variableName="respuestaLatinTrumpsBank" value="#[payload]" doc:name="Session Variable"/>
+                <set-payload value="&lt;solicitudBanco&gt;
+      &lt;numeroIdentificacion&gt;#[flowVars.solicitudBanco.numeroIdentificacion]&lt;/numeroIdentificacion&gt;
+      &lt;perfilCrediticio&gt;
+         &lt;creditHistoryLegth&gt;#[flowVars.solicitudBanco.perfilCrediticio.creditHistoryLegth]&lt;/creditHistoryLegth&gt;
+         &lt;creditScore&gt;#[flowVars.solicitudBanco.perfilCrediticio.creditScore]&lt;/creditScore&gt;
+      &lt;/perfilCrediticio&gt;
+      &lt;tipoIdentificacion&gt;#[flowVars.solicitudBanco.tipoIdentificacion]&lt;/tipoIdentificacion&gt;
+&lt;/solicitudBanco&gt;" encoding="ISO-8859-1" doc:name="Set Payload"/>
+                <set-variable variableName="fileProcesed" value="/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/banco-chibcha/procesados/#[flowVars.solicitudBanco.numeroIdentificacion].txt" doc:name="Variable" encoding="ISO-8859-1" mimeType="text/plain"/>
+                <file:outbound-endpoint path="/Users/avargas/WorkSpacesMule/WorkSpaceClase1SOA/proyectofinalsoa/banco-chibcha/pendientes" outputPattern="#[flowVars.solicitudBanco.numeroIdentificacion].xml" responseTimeout="10000" doc:name="File"/>
+                <expression-component doc:name="Expression">
+				    Thread.sleep(10000);
+				</expression-component>
+                <set-payload value="#[org.mule.util.FileUtils.readFileToString(new java.io.File(flowVars.fileProcesed))]" doc:name="Set Payload"/>
+                <object-to-string-transformer doc:name="Object to String"/>
+                <logger message="RESPUESTA ::: LATIN TRUMPS BANK &gt;&gt; #[payload]" level="INFO" doc:name="Logger"/>
+                <json:json-to-object-transformer returnClass="co.edu.usbcali.params.RespuestaBanco" doc:name="JSON to Object"/>
+                <set-session-variable variableName="respuestaBancoChibcha" value="#[payload]" doc:name="Session Variable"/>
+            </when>
+            <otherwise>
+                <logger message="Banco del pueblo &lt;10&#8217;000&#8217;000	(GET)" level="INFO" doc:name="5"/>
+                <http:request config-ref="HTTP_Request_Configuration_BancoDelPueblo_Invocation" path="/bancoPuebloService/consultarTasaInteres" method="GET" doc:name="HTTP">
+                    <http:request-builder>
+                        <http:query-param paramName="numeroIdentificacion" value="#[payload.numeroIdentificacion]"/>
+                        <http:query-param paramName="tipoIdentificacion" value="#[payload.tipoIdentificacion]"/>
+                        <http:query-param paramName="valorPrestamo" value="#[payload.valorPrestamo]"/>
+                        <http:query-param paramName="creditHistoryLegth" value="#[payload.perfilCrediticio.creditHistoryLegth]"/>
+                        <http:query-param paramName="creditScore" value="#[payload.perfilCrediticio.creditScore]"/>
+                    </http:request-builder>
+                </http:request>
+                <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+                <logger message="RESPUESTA ::: BANCO DEL PUEBLO &gt;&gt; #[payload]" level="INFO" doc:name="Logger"/>
+                <json:json-to-object-transformer returnClass="co.edu.usbcali.params.RespuestaBanco" doc:name="JSON to Object"/>
+                <set-session-variable variableName="respuestaBancoDelPueblo" value="#[payload]" encoding="ISO-8859-1" doc:name="Session Variable"/>
+            </otherwise>
+        </choice>
+        <component doc:name="Callable Java Class to Credit Process" class="co.edu.usbcali.formulario.MainEventBrainListener"/>
+        <smtp:outbound-endpoint host="smtp.gmail.com" port="587" user="andresfvargasl94@gmail.com" password="exxfdrlbdazurmvo" connector-ref="Gmail" to="#[sessionVars.payloadFormulario.correo]" subject="[Solicitud Procesada] Prestamo Grupo Vortex" responseTimeout="10000" doc:name="SMTP"/>
+        <set-payload value="Su solicitud ha sido enviada con &#233;xito. Dentro de poco recibira un email con la informaci&#243;n pertinente" encoding="ISO-8859-1" mimeType="text/plain" doc:name="Set Payload"/>
     </flow>
 </mule>

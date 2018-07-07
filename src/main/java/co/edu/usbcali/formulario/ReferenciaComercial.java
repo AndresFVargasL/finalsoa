@@ -1,7 +1,13 @@
 package co.edu.usbcali.formulario;
 
-public class ReferenciaComercial {
+import java.io.Serializable;
 
+public class ReferenciaComercial implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long nitEmpresa;
 	private String nombreEmpresa;
 	private String direccionEmpresa;

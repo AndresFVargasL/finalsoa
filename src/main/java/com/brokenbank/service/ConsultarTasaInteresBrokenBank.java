@@ -1,12 +1,14 @@
 package com.brokenbank.service;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import co.edu.usbcali.enums.TasasDeInteres;
 import co.edu.usbcali.params.RespuestaBanco;
 import co.edu.usbcali.proyectofinalsoa.utilities.Utilities;
 
@@ -33,8 +35,12 @@ public class ConsultarTasaInteresBrokenBank implements Serializable{
 			respuesta.setMensaje("Se debe ingresar la información financiera del cliente");
 		}else {
 			Random r = new Random();
-			respuesta.setTasaInteres((String.valueOf(r.ints(0, (5 + 1)).findFirst().getAsInt()))+"%");
-			respuesta.setTipoTasaInteres("Baja");
+			double leftLimit = 1D;
+		    double rightLimit = 10D;
+		    double generatedDouble = leftLimit + new Random().nextDouble() * (rightLimit - leftLimit);
+		    Integer tipoTasaTmp = new Random().ints(1, (5 + 1)).findFirst().getAsInt();
+			respuesta.setTasaInteres(new DecimalFormat("#.##").format(generatedDouble));
+			respuesta.setTipoTasaInteres(TasasDeInteres.getValue(tipoTasaTmp).descripcion());
 			respuesta.setMensaje("Tasa de interes definida");
 		}
 		

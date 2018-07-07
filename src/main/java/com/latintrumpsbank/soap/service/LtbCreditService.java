@@ -8,6 +8,8 @@ import javax.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.Gson;
+
 import co.edu.usbcali.enums.TasasDeInteres;
 import co.edu.usbcali.params.RespuestaBanco;
 import co.edu.usbcali.params.SolicitudBanco;
@@ -18,9 +20,10 @@ public class LtbCreditService implements ILtbCreditService {
 	private Logger log = LoggerFactory.getLogger(LtbCreditService.class);
 	
 	@Override
-	public RespuestaBanco prestamoService(SolicitudBanco solicitud) {
+	public String prestamoService(SolicitudBanco solicitud) {
 
 		RespuestaBanco respuesta = new RespuestaBanco();
+		String respuestaPojo = "";
 		try {
 			
 			log.info("BANCO <<<<<< LATIN TRUMPS BANK>>>>>>> Calculando tipo y tasa de interes para la solicitud de prestamo...");
@@ -37,11 +40,14 @@ public class LtbCreditService implements ILtbCreditService {
 			respuesta.setTasaInteres(new DecimalFormat("#.##").format(generatedDouble));
 			respuesta.setTipoTasaInteres(TasasDeInteres.getValue(tipoTasaTmp).descripcion());
 			
-			    			
+			Gson gson = new Gson();
+			
+			respuestaPojo = gson.toJson(respuesta);
+			
 		} catch (Exception e) {
-			respuesta = null;
+			respuestaPojo = null;
 		}
-		return respuesta;
+		return respuestaPojo;
 	}
 
 }

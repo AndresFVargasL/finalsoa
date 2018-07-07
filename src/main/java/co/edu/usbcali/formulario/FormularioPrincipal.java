@@ -1,12 +1,17 @@
 package co.edu.usbcali.formulario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
 
-public class FormularioPrincipal {
+public class FormularioPrincipal implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String tipoIdentificacion;
 	private Long numeroIdentificacion;
 	private String nombres;
@@ -14,6 +19,7 @@ public class FormularioPrincipal {
 	private Long cantidadSolicitada;
 	private String tipoMoneda;
 	private Long plazoEnMeses;
+	private String correo;
 	private List<ReferenciaComercial> referenciasComerciales;
 	private List<ReferenciaFamiliar> referenciasFamiliares;
 	
@@ -70,6 +76,12 @@ public class FormularioPrincipal {
 	}
 	public void setReferenciasFamiliares(List<ReferenciaFamiliar> referenciasFamiliares) {
 		this.referenciasFamiliares = referenciasFamiliares;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 	
 	/*public static void main(String[] args) {

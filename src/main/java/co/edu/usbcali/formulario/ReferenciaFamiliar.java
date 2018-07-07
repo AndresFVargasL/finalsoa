@@ -1,7 +1,13 @@
 package co.edu.usbcali.formulario;
 
-public class ReferenciaFamiliar {
+import java.io.Serializable;
 
+public class ReferenciaFamiliar implements Serializable  {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long identificacion;
 	private String nombre;
 	private String parentesco;
